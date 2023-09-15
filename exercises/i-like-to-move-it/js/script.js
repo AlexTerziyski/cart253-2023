@@ -33,6 +33,17 @@ let circle1 = {
     fill: 0
 };
 
+let triangle1 = {
+    x1: 400,
+    y1: 300,
+    x2: 500,
+    y2: 300,
+    x3: 450,
+    y3: 200,
+    speed: 3,
+    fill: 0
+};
+
 
 
 
@@ -68,6 +79,7 @@ function draw() {
     //Draws the square according to the previous specifications
     rect(square1.x, square1.y, square1.square1Width, square1.square1Height);
 
+    
     //Makes the circle travel down
     circle1.y += circle1.speed;
 
@@ -77,6 +89,22 @@ function draw() {
     fill(circle1.fill);
     //Draws the circle according to the previous specifications
     circle(circle1.x, circle1.y, circle1.diameter);
+
+    //Makes the triangle move to the left
+    triangle1.x1 -= triangle1.speed;
+    triangle1.x2 -= triangle1.speed;
+    triangle1.x3 -= triangle1.speed;
+
+    //Constrains the triangle so that when it hits the border on the left it stops
+    triangle1.x1 = constrain(triangle1.x1,0,width);
+    triangle1.x2 = constrain(triangle1.x2,100,width);
+    triangle1.x3 = constrain(triangle1.x3,50,width);
+
+    
+    
+
+
+    triangle(triangle1.x1, triangle1.y1, triangle1.x2, triangle1.y2, triangle1.x3, triangle1.y3);
     
 
 
