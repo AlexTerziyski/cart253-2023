@@ -14,39 +14,20 @@ function preload() {
 
 }
 
-//Attributes for the Square
-let squareX, squareY, squareSize, squareSpeed, squareColor;
-//Attributes for the Triangle
-let triangleX, triangleY, triangleSize, triangleSpeed, triangleColor;
-//Attributes for the Circle
-let circleX, circleY, circleSize, circleSpeed, circleColor;
+let square1 = {
+    x: 0,
+    y: 250,
+    square1Width: 100,
+    square1Height: 100,
+    speed: 2
+};
+
 
 /**
  * Description of setup
 */
 function setup() {
     createCanvas(500,500);
-
-    //Initializes the Square
-    squareX = random(width);
-    squareY = random(height);
-    squareSize = random(20, 50);
-    squareSpeed = random(1, 3);
-    squareColor = color(random(255), random(255), random(255));
-
-    //Initializes the Triangle
-    triangleX = random(width);
-    triangleY = random(height);
-    triangleSize = random(20, 50);
-    triangleSpeed = random(1, 3);
-    triangleColor = color(random(255), random(255), random(255));
-
-    //Initializes the Circle
-    circleX = random(width);
-    circleY = random(height);
-    circleSize = random(20, 50);
-    circleSpeed = random(1,3);
-    circleColor = color(random(255), random(255), random(255));
 }
 
 
@@ -54,5 +35,13 @@ function setup() {
  * Description of draw()
 */
 function draw() {
+    background(mouseX, mouseY, 0);
+    rectMode(CENTER);
+
+    square1.x += square1.speed;
+    rect(square1.x, square1.y, square1.square1Width, square1.square1Height);
+    
+
+
 
 }
