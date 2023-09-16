@@ -2,7 +2,11 @@
  * Exercise: I like to move it!
  * Alexander Terziyski
  * 
- * 
+ * Draws 3 different shapes (circle, square, and a triangle) that all interact in different ways
+ * The square randomizes is width, height, and color, while moving to the right until it goes off the screen
+ * The circle's diameter fluctates depending on the position of the mouse on the Y axis using map(), moving downward
+ * the triangle moves to the left until it is stopped by constrain() at the border of the canvas
+ * the background changes color depending on the position of your mouse on the screen (X and Y axis)
  */
 
 "use strict";
@@ -33,6 +37,7 @@ let circle1 = {
     fill: 0
 };
 
+//Declares the triangle object and its attributes
 let triangle1 = {
     x1: 400,
     y1: 300,
@@ -41,7 +46,7 @@ let triangle1 = {
     x3: 450,
     y3: 200,
     speed: 3,
-    fill: 0
+    
 };
 
 
@@ -57,7 +62,7 @@ function setup() {
 
 
 /**
- * Description of draw()
+ * Draws the square, circle, and triangle
 */
 function draw() {
     //Randomizes the background color based on mouse position
@@ -100,10 +105,10 @@ function draw() {
     triangle1.x2 = constrain(triangle1.x2,100,width);
     triangle1.x3 = constrain(triangle1.x3,50,width);
 
-    
-    
+    //Makes the triangle pink
+    fill(255,0,255);
 
-
+    //Draws the triangle according to the previous specifications
     triangle(triangle1.x1, triangle1.y1, triangle1.x2, triangle1.y2, triangle1.x3, triangle1.y3);
     
 
