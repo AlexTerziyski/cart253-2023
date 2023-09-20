@@ -30,19 +30,11 @@ background(backgroundShade);
 
 circle.x = circle.x + circle.speed;
 
-if (circle.x > width){
-    circle.speed = -circle.speed;
-}
-if (circle.x < 0){
-    circle.speed = -circle.speed;
-}
+fill(255,255,255);
+if (!(circle.x < width/3)){
 
-if (mouseY < height/2){
     fill(255,0,0);
-}
-
-if (mouseY > height/2){
-    fill(0,255,0);
+    
 }
 
 ellipse(circle.x,circle.y,circle.size);
