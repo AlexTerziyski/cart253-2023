@@ -6,20 +6,7 @@
 
 "use strict";
 
-
-
-let circle = {
-    x: 250,
-    y: 250,
-    size: 100,
-    vx: 0,
-    vy: 0,
-    ax: 0,
-    ay: 0,
-    acceleration: 0.1,
-    maxSpeed: 10
-};
-
+let angle=0;
 /**
  * Description of setup
 */
@@ -32,33 +19,18 @@ function setup() {
  * Description of draw()
 */
 function draw() {
-    background(0);
+    background(127);
+    
+    push();
+    fill(255,0,0);
+    rectMode(CENTER);
+    translate(width/2,height/2);
+    rotate(angle);
+    scale(.25);
+    rect(0,0,100,100);
+    pop();
 
-    if (mouseX < circle.x){
-        circle.ax = -circle.acceleration;
-    }
-    else {
-        circle.ax = circle.acceleration;
-    }
-
-    if (mouseY < circle.y){
-        circle.ay = -circle.acceleration;
-    }
-    else {
-        circle.ay = circle.acceleration;
-    }
-
-    circle.vx = circle.vx + circle.ax;
-    circle.vx = constrain(circle.vx,-circle.maxSpeed,circle.maxSpeed);
-    circle.vy = circle.vy + circle.ay;
-    circle.vy = constrain(circle.vy,-circle.maxSpeed,circle.maxSpeed);
-
-    circle.x = circle.x + circle.vx;
-    circle.y = circle.y + circle.vy;
-
-    ellipse(circle.x,circle.y,circle.size);
-   
-
+    angle = angle + 10;
 }
 
 
