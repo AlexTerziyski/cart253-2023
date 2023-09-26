@@ -1,3 +1,8 @@
-# Template p5 project
-
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+#dodge-em
+Exercise 2: Dodge Em
+ Alexander Terziyski
+ 
+ This exercise dodges your responsibilities!
+ The further away the user clicks and drags his ellipse from the responsibilities image, the more green he turns.
+ If the user is at a medium distance he turns orange, and if he is dangerously close, he turns red! (this is all done using if and else statements)
+ If the user encounters his responsibilities the program stops.
