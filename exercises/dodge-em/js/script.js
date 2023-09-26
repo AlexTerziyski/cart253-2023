@@ -8,30 +8,24 @@
 
 "use strict";
 
+let responsibilitiesImg = {
+    imgX: 0,            // Initial X position of the image
+    imgY: 250,          // Y position of the image (you can change this as needed)
+    imgSpeed: 5,        // Speed of the image
+    img: null
+};
+
 /**
  * Description of preload
 */
 function preload() {
-
+    // Load the image into the responsibilitiesImg object
+    responsibilitiesImg.img = loadImage("assets/images/Responsibilities.png");
 }
 
-let covid19 = {
-    x: 0,
-    y: 250,
-    size: 100,
-    vx: 0,
-    vy: 0,
-    speed: 5,
-    fill: {
-        r: 255,
-        g: 0,
-        b: 0
-    }
-};
-
 let user = {
-    x: 250,
-    y: 250,
+    x: 500,
+    y: 500,
     size: 100,
     fill: {
         r: 255,
@@ -42,61 +36,55 @@ let user = {
 
 let numStatic = 1500;
 
-
 /**
  * Description of setup
-*/
+ */
 function setup() {
-    createCanvas(windowWidth,windowHeight);
-
-    covid19.y = random(0,height);
-    covid19.vx = covid19.speed;
+    createCanvas(windowWidth, windowHeight);
 }
-
 
 /**
  * Description of draw()
-*/
+ */
 function draw() {
     background(0);
 
     // Displays static
     for (let i = 0; i < numStatic; i++) {
-        let x = random(0,width);
-        let y = random(0,height);
+        let x = random(0, windowWidth);
+        let y = random(0, windowHeight);
         stroke(255);
-        point(x,y);
+        point(x, y);
     }
-    
-    //Covid movement
-    covid19.x = covid19.x + covid19.vx;
-    covid19.y = covid19.y + covid19.vy;
 
-    if (covid19.x > width){
-        covid19.x = 0;
-        covid19.y = random(0,height);
+    // Update image position
+    responsibilitiesImg.imgX += responsibilitiesImg.imgSpeed;
+
+    // Reset image position when it goes off the right edge of the canvas
+    if (responsibilitiesImg.imgX > windowWidth) {
+        responsibilitiesImg.imgX = 0 - responsibilitiesImg.img.width;
+        responsibilitiesImg.imgY = random(0, windowHeight); // You can randomize the Y position if needed
     }
-    //Display Covid
-    fill(covid19.fill.r, covid19.fill.g, covid19.fill.b);
-    ellipse(covid19.x,covid19.y,covid19.size);
 
+    // Display the moving image (responsibilitiesImg)
+    image(responsibilitiesImg.img, responsibilitiesImg.imgX, responsibilitiesImg.imgY);
 
-    //Display user
+    // Display user
     fill(user.fill.r, user.fill.g, user.fill.b);
     ellipse(user.x, user.y, user.size);
 
-    //Check for catching Covid
-    let d = dist(user.x, user.y, covid19.x, covid19.y);
-    if (d < covid19.size/2 + user.size/2){
+    // Check for catching the moving image
+    let d = dist(user.x, user.y, responsibilitiesImg.imgX + responsibilitiesImg.img.width / 2, responsibilitiesImg.imgY + responsibilitiesImg.img.height / 2);
+    if (d < responsibilitiesImg.img.width / 2 + user.size / 2) {
         noLoop();
     }
-    
+
     // Change user fill color based on distance
-    if (d > covid19.size * 2.5 + user.size * 2.5) {
+    if (d > responsibilitiesImg.img.width * 2.5 + user.size * 2.5) {
         user.fill.r = 0;
         user.fill.g = 255;
         user.fill.b = 0;
-    } else if (d > covid19.size * 2 + user.size * 2) {
+    } else if (d > responsibilitiesImg.img.width * 2 + user.size * 2) {
         user.fill.r = 255;
         user.fill.g = 125;
         user.fill.b = 0;
@@ -105,18 +93,12 @@ function draw() {
         user.fill.g = 0;
         user.fill.b = 0;
     }
-
-    
-
 }
-//User movement
+
+// User movement
 function mouseDragged() {
     if (mouseIsPressed) {
         user.x = mouseX;
         user.y = mouseY;
     }
 }
-    
-   
-
-    
