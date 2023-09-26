@@ -33,7 +33,11 @@ let user = {
     x: 250,
     y: 250,
     size: 100,
-    fill: 255
+    fill: {
+        r: 255,
+        g: 255,
+        b: 255
+    }
 };
 
 let numStatic = 1500;
@@ -78,7 +82,7 @@ function draw() {
 
 
     //Display user
-    fill(user.fill);
+    fill(user.fill.r, user.fill.g, user.fill.b);
     ellipse(user.x, user.y, user.size);
 
     //Check for catching Covid
@@ -86,6 +90,23 @@ function draw() {
     if (d < covid19.size/2 + user.size/2){
         noLoop();
     }
+    
+    // Change user fill color based on distance
+    if (d > covid19.size * 2.5 + user.size * 2.5) {
+        user.fill.r = 0;
+        user.fill.g = 255;
+        user.fill.b = 0;
+    } else if (d > covid19.size * 2 + user.size * 2) {
+        user.fill.r = 255;
+        user.fill.g = 125;
+        user.fill.b = 0;
+    } else { // Very close
+        user.fill.r = 255;
+        user.fill.g = 0;
+        user.fill.b = 0;
+    }
+
+    
 
 }
 //User movement
