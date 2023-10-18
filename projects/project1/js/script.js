@@ -153,3 +153,42 @@ function drawRocket() {
       endGame(); // Ends the game when the rocket goes off the top of the canvas
     }
   }
+  
+/**
+*  This function is for drawing the Alien
+*/
+function alienHead() {
+    // Clears the canvas and set the background to black
+    background(220);
+    stroke(0);
+  
+    // Sets the position of the alien's head
+    let centerX = width / 2;
+    let centerY = height / 2;
+  
+    // Alien's head
+    fill(100, 200, 100); // Green color for the head
+    noStroke();
+    ellipse(centerX, centerY, 100, 120);
+  
+    // Alien's eyes
+    fill(255); // White color for the eyes
+    ellipse(centerX - 30, centerY - 30, 30, 30);
+    ellipse(centerX + 30, centerY - 30, 30, 30);
+  
+    // Alien's pupils
+    fill(0); // Black color for the pupils
+    ellipse(centerX - 30, centerY - 30, 10, 10);
+    ellipse(centerX + 30, centerY - 30, 10, 10);
+  
+    // Alien's mouth
+    noFill();
+    stroke(255); // White color for the mouth
+    arc(centerX, centerY + 20, 60, 40, 0, PI);
+  
+    // Alien's antennae
+    stroke(100, 200, 100); // Green color for the antennae
+    strokeWeight(4);
+    line(centerX - 20, centerY - 60, centerX - 20, centerY - 90);
+    line(centerX + 20, centerY - 60, centerX + 20, centerY - 90);
+  }
