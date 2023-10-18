@@ -1,10 +1,14 @@
 /**
- * Project 1
- * Alex Terziyski
+ * Project 1: Simulation
+ * Alex Teriyski
+ *
+ * This program is designed to simulate a rocketship typing game where the player attempts to write as many words as possible before 
+ * the rocket hits the top of the screen. When words are correctly typed, the game progresses and displays an alien as a reward. 
+ * When the rocket hits the top of the screen, the game ends and shows your score. Pressing the Enter key restarts the game.
  * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ * rocketShip gif from: https://giphy.com/stickers/transparent-znDbCE43plL22HlXsn
  */
+
 "use strict";
 
 // Defines the rocketShip object with according attributes
