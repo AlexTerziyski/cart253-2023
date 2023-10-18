@@ -53,8 +53,63 @@ function setup() {
 
 
 /**
- * Description of draw()
+* Main drawing function that handles the different gameStates and draws the according texts.
 */
 function draw() {
+    if (gameState.isTitleScreen) {
+      // Displays the title screen
+      background(220);
+      fill(0); 
+      textSize(32);
+      text("Type as many words as you can before the block hits the top of the screen!", width / 2, height / 2 - 30);
+      text("Press Spacebar to enter the program.", width / 2, height / 2 + 30);
+    } else if (gameState.isGameStarted) {
+      // Displays the game screen
+      background(220);
+      fill(0); 
+      textSize(32);
+      stroke(100, 200, 100); // Sets stroke color to green
+      strokeWeight(2);
+      text(wordState.currentWord, width / 2, height / 2);
+      drawRocket();
+    } else if (gameState.isGameEnded) {
+      // Displays the end screen
+      background(220);
+      fill(0); 
+      textSize(32);
+      noStroke(); // Reset stroke settings
+      celebration(); // Calls the celebration function to display confetti
+      // Displays the current count of correctly typed words (using template literals) on the canvas
+      text(`Game Over! You typed ${wordState.correctWords} words.`, width / 2, height / 2 - 30);
+      text("Press Enter to restart.", width / 2, height / 2 + 30);
+    }
+  }
 
-}
+/**
+* Function that displays the title screen with according starting boolean attributes for the game state.
+*/
+  function displayTitleScreen() {
+    gameState.isTitleScreen = true;
+    gameState.isGameStarted = false;
+    gameState.isGameEnded = false;
+  }
+  
+/**
+* Starts the game simulation with according wordState attributes
+*/
+  function startGame() {
+    gameState.isTitleScreen = false;
+    gameState.isGameStarted = true;
+    wordState.currentWord = random(wordState.words); // Provides the random words you see on the screen
+    wordState.correctWords = 0; // Used for tracking how many correct words you will have correctly typed at the end
+    rocketShip.y = height - rocketShip.height; // Makes the rocket move up
+    gameState.isGameEnded = false; 
+  }
+  
+/**
+* THis function ends the game and transitions into the end screen/state.
+*/
+  function endGame() {
+    gameState.isGameStarted = false;
+    gameState.isGameEnded = true;
+  }
