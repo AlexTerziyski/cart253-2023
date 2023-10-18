@@ -153,7 +153,7 @@ function drawRocket() {
       endGame(); // Ends the game when the rocket goes off the top of the canvas
     }
   }
-  
+
 /**
 *  This function is for drawing the Alien
 */
@@ -191,4 +191,34 @@ function alienHead() {
     strokeWeight(4);
     line(centerX - 20, centerY - 60, centerX - 20, centerY - 90);
     line(centerX + 20, centerY - 60, centerX + 20, centerY - 90);
+  }
+
+/**
+* This function is to be used and drawn at the end screen as a celebratory design for finishing the simulation
+*/
+function celebration() {
+    background(255); // White background for the celebration
+  
+    // Creates random conffetti shapes and colors to be displayed
+    for (let i = 0; i < 100; i++) {
+      let x = random(width);
+      let y = random(height);
+      let size = random(10, 20);
+      let angle = random(TWO_PI); // Random angle for rotation
+      let confettiColor = color(random(255), random(255), random(255));
+  
+      fill(confettiColor);
+      noStroke();
+  
+      // Randomly chooses between rectangle and ellipse for confetti shape
+      if (random() > 0.5) {
+        rect(x, y, size, size);
+      } else {
+        push();
+        translate(x, y);
+        rotate(angle);
+        ellipse(0, 0, size);
+        pop();
+      }
+    }
   }
