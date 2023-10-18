@@ -113,3 +113,29 @@ function draw() {
     gameState.isGameStarted = false;
     gameState.isGameEnded = true;
   }
+
+/**
+* Function that handles crucial keyboard input during the game.
+*/
+function keyPressed() {
+    if (gameState.isTitleScreen && keyCode === 32) { // keyCode 32 means the SPACEBAR
+      startGame();
+    } else if (gameState.isGameStarted) {
+      if (keyCode === ENTER) { // Used at the end of the game if you want to play again
+        startGame();
+      } else {
+        if (key === wordState.currentWord[0]) {
+          // Checks if the key matches the first letter of the currentWord.
+          // If it matches the player typed the letter correctly.
+          wordState.currentWord = wordState.currentWord.substring(1); // Progresses the word by removing the first character.
+          if (wordState.currentWord.length === 0) {
+            wordState.correctWords++; // Updates the amount of correctWords you've typed to have your score at the end
+            wordState.currentWord = random(wordState.words); // Gives you a new random word
+            alienHead(); // changes the background for the Alien design
+          }
+        }
+      }
+    } else if (gameState.isGameEnded && keyCode === ENTER) { // Starts the game again if you press 'ENTER' at the end
+      startGame();
+    }
+  }
