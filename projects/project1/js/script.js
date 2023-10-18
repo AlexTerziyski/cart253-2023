@@ -22,7 +22,7 @@ let rocketShip = {
 function preload() {
     rocketShip.img = loadImage("assets/images/Rocket.gif");
   }
-  
+
 // gameState object that stores the initial boolean values
 let gameState = {
     isGameStarted: false,
@@ -39,11 +39,17 @@ let gameState = {
   };
 
 /**
- * Description of setup
+* Creates the canvas and initializes the game.
 */
 function setup() {
-
-}
+    createCanvas(windowWidth, windowHeight);
+    //random words stored as strings in an array
+    wordState.words = ["alien", "cosmos", "astronomy", "galaxy", "telescope", "exploration", "universe", "extraterrestrial", "orbit", "cosmic", "celestial", "rocket", "planet", "mars", "asteroid", "interstellar", "cosmonaut", "lunar", "spacetime", "comet", "cosmology", "stellar", "spacesuit", "observatory", "cosmonaut", "astronaut", "gravity", "launch", "telemetry", "moonwalk", "starship", "outerspace", "redshift", "galactic", "meteorite", "extraplanetary", "constellation", "exploratory", "quasar", "martian", "astronomer", "nucleosynthesis", "blackhole", "nebula", "interplanetary", "stellarwind", "ufo", "supernova", "spaceshuttle", "solarsystem", "astrobiology"];
+    textAlign(CENTER, CENTER);
+    textSize(32);
+    frameRate(5); // Sets the frame of the screen to 5 (can be changed to make the rocket move faster or slower)
+    displayTitleScreen();
+  }
 
 
 /**
