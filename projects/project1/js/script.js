@@ -139,3 +139,17 @@ function keyPressed() {
       startGame();
     }
   }
+
+/**
+* Function that draws the rocket ship and controls its movement.
+*/
+function drawRocket() {
+    if (!gameState.isTitleScreen) {
+      image(rocketShip.img, rocketShip.x, rocketShip.y, rocketShip.width, rocketShip.height);
+      rocketShip.y -= 10; // Moves the rocket upwards
+    }
+  
+    if (rocketShip.y < -rocketShip.height) {
+      endGame(); // Ends the game when the rocket goes off the top of the canvas
+    }
+  }
