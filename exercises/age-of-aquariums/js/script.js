@@ -20,6 +20,11 @@ let schoolSize = 5;
 // User-controlled "fish"/rectangle
 let playerFish;
 
+let upPressed = false;
+let downPressed = false;
+let leftPressed = false;
+let rightPressed = false;
+
 /**
  * Description of setup
 */
@@ -76,7 +81,8 @@ function draw() {
     for (let i = 0; i < school.length; i++){
         displayFish(school[i]);
     }
-    displayPlayerFish(playerFish); 
+    displayPlayerFish(playerFish);
+    updatePlayerPosition(); 
 }
 
 /**
@@ -125,15 +131,41 @@ function mousePressed() {
     let fish = createFish(mouseX, mouseY);
     school.push(fish);
 }
-
 function keyPressed() {
     if (key === 'w' || key === 'W') {
-        playerFish.y -= playerFish.speed;
+        upPressed = true;
     } else if (key === 's' || key === 'S') {
-        playerFish.y += playerFish.speed;
+        downPressed = true;
     } else if (key === 'a' || key === 'A') {
-        playerFish.x -= playerFish.speed;
+        leftPressed = true;
     } else if (key === 'd' || key === 'D') {
+        rightPressed = true;
+    }
+}
+
+function keyReleased() {
+    if (key === 'w' || key === 'W') {
+        upPressed = false;
+    } else if (key === 's' || key === 'S') {
+        downPressed = false;
+    } else if (key === 'a' || key === 'A') {
+        leftPressed = false;
+    } else if (key === 'd' || key === 'D') {
+        rightPressed = false;
+    }
+}
+
+function updatePlayerPosition() {
+    if (upPressed) {
+        playerFish.y -= playerFish.speed;
+    }
+    if (downPressed) {
+        playerFish.y += playerFish.speed;
+    }
+    if (leftPressed) {
+        playerFish.x -= playerFish.speed;
+    }
+    if (rightPressed) {
         playerFish.x += playerFish.speed;
     }
 }
