@@ -59,7 +59,7 @@ function createFish(x, y) {
     let fish = {
         x: x,
         y: y,
-        size: 50,
+        size: 25,
         vx: 0,
         vy: 0,
         speed: 2
@@ -81,6 +81,15 @@ function draw() {
     for (let i = 0; i < school.length; i++){
         displayFish(school[i]);
     }
+
+     // Checks for collisions and eat non-controlled fish
+     for (let i = school.length - 1; i >= 0; i--) {
+        let fish = school[i];
+        if (collides(playerFish, fish)) {
+            school.splice(i, 1); // Remove the non-controlled fish at index 'i' from the 'school' array using splice
+        }
+    }
+
     displayPlayerFish(playerFish);
     updatePlayerPosition(); 
 }
@@ -168,4 +177,9 @@ function updatePlayerPosition() {
     if (rightPressed) {
         playerFish.x += playerFish.speed;
     }
+}
+
+function collides(fishA, fishB) {
+    let distance = dist(fishA.x, fishA.y, fishB.x, fishB.y);
+    return distance < (fishA.size + fishB.size) / 2;
 }
