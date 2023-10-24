@@ -62,7 +62,8 @@ function createFish(x, y) {
         size: 25,
         vx: 0,
         vy: 0,
-        speed: 2
+        speed: 2,
+        color: color(random(255), random(255), random(255))
     }
     return fish;
 }
@@ -129,7 +130,7 @@ function moveFish(fish) {
 // Displays the provided fish on the canvas
 function displayFish(fish){
     push();
-    fill(200, 100, 100);
+    fill(fish.color);
     noStroke();
     ellipse(fish.x, fish.y, fish.size);
     pop();
@@ -183,3 +184,4 @@ function collides(fishA, fishB) {
     let distance = dist(fishA.x, fishA.y, fishB.x, fishB.y);
     return distance < (fishA.size + fishB.size) / 2;
 }
+
