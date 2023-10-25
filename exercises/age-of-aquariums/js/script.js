@@ -1,20 +1,32 @@
 /**
  * Exercise 4: Age of Aquariums
  * Alex Terziyski
- *
+ * This program has a user-controlled "fish" that is controlled with W,A,S,D. 
+ * The user's fish can eat the wild fish. 
+ * The wild fish come in different colors and will never touch eachother!
+ * 
  */
 
 "use strict";
 
-// Each fish in the school
-let school = [];
-let schoolSize = 30;
 
+let school = []; // School array
+let schoolSize = 30; // How many fish total on canvas
+let playerFish; // User-controlled "fish"/ellipse
 
+// Game states
+let gameState = {
+    simulation: 0,
+    nomNomEnding: 1,
+    youFailedEnding: 2,
+  };
 
-// User-controlled "fish"/ellipse
-let playerFish;
+// Other variables
+let fishEaten = 0;
+let startTime;
+gameState = 'simulation';
 
+// Keystroke states
 let keyState = {
     upPressed: false,
     downPressed: false,
@@ -23,7 +35,7 @@ let keyState = {
 }
 
 /**
- * Description of setup
+ * Setups the canvas according to set parameters
 */
 function setup() {
     createCanvas(600,600);
@@ -34,6 +46,8 @@ function setup() {
         school.push(fish);
     }
     playerFish = createPlayerFish(width / 2, height / 2);
+
+    startTime = millis(); // Set the start time when the game begins
 }
 
 /**
@@ -50,8 +64,9 @@ function createPlayerFish(x, y) {
 }
 
 
-// createFish(x,y)
-// Creates a new JavaScript Object describing a fish and returns it
+/**
+ * Creates a new JavaScript Object describing a fish and returns it
+ */
 function createFish(x, y) {
     let fish = {
         x: x,
@@ -71,39 +86,56 @@ function createFish(x, y) {
 */
 function draw() {
     background(0);
-
-    for (let i = 0; i < school.length; i++){
-        moveFish(school[i]);
-    }
-
-    for (let i = 0; i < school.length; i++){
-        displayFish(school[i]);
-    }
-
-  
-   
-
-     // Checks for collisions with non-controlled fish
-     for (let i = school.length - 1; i >= 0; i--) {
-        let fish = school[i];
-        if (collides(playerFish, fish)) {
-            school.splice(i, 1); // Removes the non-controlled fish at index 'i' from the 'school' array using splice
+    if (gameState === 'simulation') {
+        for (let i = 0; i < school.length; i++){
+            moveFish(school[i]);
         }
-    }
-
-
-    displayPlayerFish(playerFish);
-    updatePlayerPosition();
     
-    for (let i = 0; i < school.length; i++) {
-        for (let j = 0; j < school.length; j++) {
-            if (i !== j && collides(school[i], school[j])) {
-                avoidCollision(school[i], school[j]);
+        for (let i = 0; i < school.length; i++){
+            displayFish(school[i]);
+        }
+        // Checks for collisions with non-controlled fish
+        for (let i = school.length - 1; i >= 0; i--) {
+            let fish = school[i];
+            if (collides(playerFish, fish)) {
+                school.splice(i, 1); // Removes the non-controlled fish at index 'i' from the 'school' array using splice
+                fishEaten++;
             }
         }
+        displayPlayerFish(playerFish);
+        updatePlayerPosition();
+        
+        for (let i = 0; i < school.length; i++) {
+            for (let j = 0; j < school.length; j++) {
+                if (i !== j && collides(school[i], school[j])) {
+                    avoidCollision(school[i], school[j]);
+                }
+            }
+        }
+        // Check if the player has eaten 5 fish to trigger the "nomNomEnding" state
+        if (fishEaten >= 5) {
+            gameState = 'nomNomEnding';
+        } 
+    }
+    // Checks if 10 seconds have passed to trigger the "youFailedEnding" state
+    if (gameState !== 'nomNomEnding' && millis() - startTime >= 10000) {
+        gameState = 'youFailedEnding';
     }
 
+    // Displays the end screens based on the game state
+    if (gameState === 'nomNomEnding') {
+        // Display the "Nom Nom Ending" screen
+        textSize(32);
+        fill(255);
+        text("Nom Nom Ending", width / 2, height / 2);
+    } else if (gameState === 'youFailedEnding') {
+        // Display the "You Failed Ending" screen
+        textSize(32);
+        fill(255);
+        text("You Failed Ending", width / 2, height / 2);
+    }
 }
+
 
 /**
  * This function is used to display the player-controlled fish on the canvas
@@ -116,9 +148,9 @@ function displayPlayerFish(playerFish) {
     pop();
 }
 
-
-// moveFish(fish)
-// Chooses whether the given fish change direction and moves them
+/**
+ * This function randomizes the given fish change direction and moves them
+ */
 function moveFish(fish) {
     // Chooses whether to change direction in terms of velocity
     let change = random(0, 1);
@@ -136,8 +168,10 @@ function moveFish(fish) {
     fish.y = constrain(fish.y, 0, height);
 }
 
-// displayFish(fish)
-// Displays the provided fish on the canvas
+
+/**
+ * Displays the provided fish on the canvas
+ */
 function displayFish(fish){
     push();
     fill(fish.color);
@@ -146,11 +180,17 @@ function displayFish(fish){
     pop();
 }
 
-
+/**
+ * This function adds fish when the user clicks the canvas
+ */
 function mousePressed() {
     let fish = createFish(mouseX, mouseY);
     school.push(fish);
 }
+
+/**
+ * This function is for usage when the user is pressing W,A,S,D
+ */
 function keyPressed() {
     if (key === 'w' || key === 'W') {
         keyState.upPressed = true;
@@ -163,6 +203,9 @@ function keyPressed() {
     }
 }
 
+/**
+ * This function is for usage when the user stops pressing W,A,S,D 
+ */
 function keyReleased() {
     if (key === 'w' || key === 'W') {
         keyState.upPressed = false;
@@ -175,6 +218,9 @@ function keyReleased() {
     }
 }
 
+/**
+ * This function is used to update the directional movement of the player
+ */
 function updatePlayerPosition() {
     if (keyState.upPressed) {
         playerFish.y -= playerFish.speed;
@@ -190,12 +236,17 @@ function updatePlayerPosition() {
     }
 }
 
+/**
+ * This function is for usage for when the playerFish collides with the non-player fish
+ */
 function collides(fishA, fishB) {
     let distance = dist(fishA.x, fishA.y, fishB.x, fishB.y);
     return distance < (fishA.size + fishB.size) / 2;
 }
 
-// Avoid collision between two fish
+/**
+ * This functions avoids collision between the fish that are not controlled by the user
+ */
 function avoidCollision(fishA, fishB) {
     let angle = atan2(fishB.y - fishA.y, fishB.x - fishA.x);
     let distToMove = (fishA.size + fishB.size) / 2 - dist(fishA.x, fishA.y, fishB.x, fishB.y) + 1;

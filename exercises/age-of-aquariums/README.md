@@ -1,3 +1,7 @@
 # E4: Age of Aquariums
-
-This is the README file for the entire project. For more official projects you should write information here about the nature of the project, your name, any special explanations of how the project works, etc.
+ * Alex Terziyski
+ * This program has a user-controlled "fish" that is controlled with W,A,S,D. 
+ * The user's fish can eat the wild fish. 
+ * The wild fish come in different colors and will never touch eachother!
+ * If you eat 5 fish, you get the Nom Nom Ending!
+ * If 10 seconds pass and you don't eat any fish, you get a Failure ending :(
