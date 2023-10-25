@@ -3,8 +3,10 @@
  * Alex Terziyski
  * This program has a user-controlled "fish" that is controlled with W,A,S,D. 
  * The user's fish can eat the wild fish. 
- * The wild fish come in different colors and will never touch eachother!
- * 
+ * The wild fish come in different colors (parameter) and will never touch eachother! (property)
+ * If you eat 5 fish, you get the Nom Nom Ending!
+ * If 10 seconds pass and you don't eat any fish, you get a Failure ending :(
+ * Players can also click to spawn more fish!
  */
 
 "use strict";
@@ -12,7 +14,7 @@
 
 let school = []; // School array
 let schoolSize = 30; // How many fish total on canvas
-let playerFish; // User-controlled "fish"/ellipse
+let playerFish; // Declares player's fish variable (User-controlled "fish"/ellipse)
 
 // Game states
 let gameState = {
@@ -35,7 +37,7 @@ let keyState = {
 }
 
 /**
- * Setups the canvas according to set parameters
+ * Sets up the canvas according to set parameters
 */
 function setup() {
     createCanvas(600,600);
@@ -47,7 +49,7 @@ function setup() {
     }
     playerFish = createPlayerFish(width / 2, height / 2);
 
-    startTime = millis(); // Set the start time when the game begins
+    startTime = millis(); // Sets the start time when the game begins
 }
 
 /**
@@ -75,13 +77,13 @@ function createFish(x, y) {
         vx: 0,
         vy: 0,
         speed: 1,
-        color: color(random(255), random(255), random(255))
+        color: color(random(255), random(255), random(255)) // random color parameter
     }
     return fish;
 }
 
 /**
- * Description of draw()
+ * draw()
  * Moves and displays the fish
 */
 function draw() {
@@ -112,7 +114,7 @@ function draw() {
                 }
             }
         }
-        // Check if the player has eaten 5 fish to trigger the "nomNomEnding" state
+        // Checks if the player has eaten 5 fish to trigger the "nomNomEnding" state
         if (fishEaten >= 5) {
             gameState = 'nomNomEnding';
         } 
@@ -124,12 +126,12 @@ function draw() {
 
     // Displays the end screens based on the game state
     if (gameState === 'nomNomEnding') {
-        // Display the "Nom Nom Ending" screen
+        // Displays the "Nom Nom Ending" screen
         textSize(32);
         fill(255);
         text("Nom Nom Ending", width / 2, height / 2);
     } else if (gameState === 'youFailedEnding') {
-        // Display the "You Failed Ending" screen
+        // Displays the "You Failed Ending" screen
         textSize(32);
         fill(255);
         text("You Failed Ending", width / 2, height / 2);
