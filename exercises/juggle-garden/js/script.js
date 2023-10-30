@@ -1,14 +1,10 @@
 /**
- * EX: Juggle Garden
+ * Ex 5: Juggle Garden
  * Alex Terziyski
- * 
- * This is a template. You must fill in the title, author, 
- * and this description to match your project!
+ *
  */
 
 "use strict";
-
-
 
 /**
  * Description of preload
@@ -22,7 +18,15 @@ let gravityForce = 0.0025;
 let paddle;
 
 let balls = [];
-let numBalls = 10;
+let numBalls = 1;
+
+let gameState = {
+    simulation: 0,
+    firstEnding: 1,
+    secondEnding: 2,
+  };
+
+  gameState = 'simulation';
 
 
 /**
@@ -61,3 +65,12 @@ function draw() {
         }
     }
 }
+
+/**
+ * This function creates a new ball at the mouse click position
+ */
+function mousePressed() {
+    let ball = new Ball(mouseX, mouseY);
+    balls.push(ball);
+  }
+  
