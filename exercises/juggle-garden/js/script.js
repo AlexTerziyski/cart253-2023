@@ -17,6 +17,8 @@ let gravityForce = 0.0025;
 
 let paddle;
 
+let chainsaw;
+
 let balls = [];
 let numBalls = 1;
 
@@ -36,6 +38,9 @@ function setup() {
     createCanvas(windowWidth,windowHeight);
 
     paddle = new Paddle(300,20);
+    
+    // Created an instance of the Chainsaw class
+    chainsaw = new Chainsaw(width / 2, height - 50);
 
     for (let i = 0; i < numBalls; i++) {
       let x = random(0,width);
@@ -54,6 +59,9 @@ function draw() {
 
     paddle.move();
     paddle.display();
+
+    chainsaw.move();
+    chainsaw.display();
 
     for (let i = 0; i < balls.length; i++) {
         let ball = balls[i];

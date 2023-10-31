@@ -54,4 +54,22 @@ class Ball {
         pop();
     }
 
+    hitChainsaw(chainsaw) {
+        let chainsawTop = chainsaw.y - chainsaw.handleLength;
+        let chainsawBottom = chainsaw.y + chainsaw.bladeLength;
+        let chainsawLeft = chainsaw.x - chainsaw.bladeWidth / 2;
+        let chainsawRight = chainsaw.x + chainsaw.bladeWidth / 2;
+    
+        if (
+          this.y >= chainsawTop &&
+          this.y <= chainsawBottom &&
+          this.x >= chainsawLeft &&
+          this.x <= chainsawRight
+        ) {
+          return true; // Collision detected
+        }
+    
+        return false;
+      }
+
 }
