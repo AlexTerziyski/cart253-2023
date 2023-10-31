@@ -70,6 +70,12 @@ function draw() {
             ball.move();
             ball.bounce(paddle);
             ball.display();
+
+        // Checks for collision with the chainsaw
+        if (ball.hitChainsaw(chainsaw)) {
+            ball.active = false; // Marks the ball as inactive
+            balls.splice(i, 1); // Removes the ball from the array
+            }
         }
     }
 }
