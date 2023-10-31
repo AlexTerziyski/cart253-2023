@@ -6,13 +6,6 @@
 
 "use strict";
 
-/**
- * Description of preload
-*/
-function preload() {
-
-}
-
 let gravityForce = 0.0025;
 
 let paddle;
@@ -28,8 +21,7 @@ let gameState = {
     secondEnding: 2,
   };
 
-  gameState = 'simulation';
-
+gameState.current = gameState.simulation; // Sets the initial game state to 'simulation'
 
 /**
  * Description of setup
@@ -63,22 +55,48 @@ function draw() {
     chainsaw.move();
     chainsaw.display();
 
-    for (let i = 0; i < balls.length; i++) {
-        let ball = balls[i];
-        if (ball.active) {
-            ball.gravity(gravityForce);
-            ball.move();
-            ball.bounce(paddle);
-            ball.display();
+    if (gameState.current === gameState.simulation){
+        for (let i = 0; i < balls.length; i++) {
+            let ball = balls[i];
+            if (ball.active) {
+                ball.gravity(gravityForce);
+                ball.move();
+                ball.bounce(paddle);
+                ball.display();
 
-        // Checks for collision with the chainsaw
-        if (ball.hitChainsaw(chainsaw)) {
-            ball.active = false; // Marks the ball as inactive
-            balls.splice(i, 1); // Removes the ball from the array
+            // Checks if the ball falls off the screen
+            if (ball.y > height) {
+                gameState.current = gameState.firstEnding;
+            }
+    
+            // Checks for collision with the chainsaw
+            if (ball.hitChainsaw(chainsaw)) {
+                ball.active = false; // Marks the ball as inactive
+                balls.splice(i, 1); // Removes the ball from the array
+                }
             }
         }
-    }
+    } else if (gameState.current === gameState.firstEnding) {
+        // Handles the firstEnding state
+        background(0); // Clears the canvas
+        textSize(32); // Sets the text size
+        fill(255);    // Sets the text color (white)
+        textAlign(CENTER, CENTER); // Centers the text
+
+        // Display "ENDING 1" in the middle of the screen
+        text("ENDING 1", width / 2, height / 2);
+    } else if (gameState.current === gameState.secondEnding) {
+        // Handles the secondEnding state
+        background(0); // Clear the canvas
+        textSize(32); // Sets the text size
+        fill(255); // Sets the text color (white)
+        textAlign(CENTER, CENTER); // Centers the text
+    
+        // Display "ENDING 2" in the middle of the screen
+        text("ENDING 2", width / 2, height / 2);
+      }
 }
+
 
 /**
  * This function creates a new ball at the mouse click position
