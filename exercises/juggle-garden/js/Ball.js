@@ -54,6 +54,9 @@ class Ball {
         pop();
     }
 
+    /**
+     * Method to check if the ball hits the Chainsaw (for usage in secondEnding gamestate)
+     */
     hitChainsaw(chainsaw) {
         let chainsawTop = chainsaw.y - chainsaw.handleLength;
         let chainsawBottom = chainsaw.y + chainsaw.bladeLength;

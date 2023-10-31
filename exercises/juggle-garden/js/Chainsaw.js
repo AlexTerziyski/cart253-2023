@@ -1,5 +1,6 @@
 class Chainsaw {
-    constructor(x, y) {
+
+    constructor(x,y) {
       this.x = x;
       this.y = y;
       
@@ -12,21 +13,21 @@ class Chainsaw {
     
     display() {
         push();
-        fill(200, 0, 0); // Red color
-        rect(this.x - this.bladeWidth / 2, this.y, this.bladeWidth, this.bladeLength);
+        fill(200, 0, 0); // Red color (handle)
+        rect(this.x - this.bladeWidth, this.y, this.bladeWidth, this.bladeLength);
     
-        // Draws the chainsaw handle
-        fill(100, 100, 100); // Gray color
-        rect(this.x - this.bladeWidth / 2, this.y - this.handleLength, this.bladeWidth, this.handleLength);
+        fill(100, 100, 100); // Gray color (blade)
+        rect(this.x - this.bladeWidth, this.y - this.handleLength, this.bladeWidth, this.handleLength);
         pop();
     }
 
     move() {
-      this.x += this.speed;
+      this.x += this.speed; // Moves chainsaw to the right
     
     // If the chainsaw goes off the canvas, wrap it around to the other side
-    if (this.x > width + this.bladeWidth / 2) {
-      this.x = -this.bladeWidth / 2;
+    if (this.x > width + this.bladeWidth) {
+      this.x = -this.bladeWidth;
     }
   }
+
 }

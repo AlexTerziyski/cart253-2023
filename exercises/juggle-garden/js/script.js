@@ -1,20 +1,32 @@
 /**
  * Ex 5: Juggle Garden
  * Alex Terziyski
- *
+ * 
+ * This program simulates a juggling game where you must bounce a ball/balls to dodge a Chainsaw!
+ * The aim is to keep the ball bouncing for as long as possible. 
+ * If the ball falls to the bottom of the screen and you fail to bounce it, you get 'Ending 1'. 
+ * If the ball hits the Chainsaw, you get 'Ending 2'. 
+ * If you want to make it more difficult for yourself, you may click anywhere on the screen to add more balls!
+ * 
+ * The simulation starts right away with 1 ball automatically spawning! Have fun!
  */
 
 "use strict";
 
-let gravityForce = 0.0025;
+// initial gravity force variable
+let gravityForce = 0.0025; 
 
+// Paddle variable
 let paddle;
 
+// Chainsaw variable
 let chainsaw;
 
+// Ball variables
 let balls = [];
 let numBalls = 1;
 
+// gameState object and attributes (individual gameStates)
 let gameState = {
     simulation: 0,
     firstEnding: 1,
@@ -24,7 +36,8 @@ let gameState = {
 gameState.current = gameState.simulation; // Sets the initial game state to 'simulation'
 
 /**
- * Description of setup
+ * This function sets the Canvas size, the paddle with its size attributes, the chainsaw with its size attributes,
+ * and initializes the randomization in where the first ball(s) spawn on the screen
 */
 function setup() {
     createCanvas(windowWidth,windowHeight);
@@ -44,7 +57,8 @@ function setup() {
 
 
 /**
- * Description of draw()
+ * This function draws the paddle and chainsaw on the screen with their movement and then handles the
+ * according gameStates with their logic (Initially starts with the simulation gameState)
 */
 function draw() {
     background(0);
@@ -66,14 +80,14 @@ function draw() {
 
             // Checks if the ball falls off the screen
             if (ball.y > height) {
-                gameState.current = gameState.firstEnding;
+                gameState.current = gameState.firstEnding; // Updates gamestate to "firstEnding"
             }
     
             // Checks for collision with the chainsaw
             if (ball.hitChainsaw(chainsaw)) {
                 ball.active = false; // Marks the ball as inactive
                 balls.splice(i, 1); // Removes the ball from the array
-                gameState.current = gameState.secondEnding; // Transitions to the "secondEnding" state
+                gameState.current = gameState.secondEnding; // Updates gamestate to "secondEnding"
                 }
             }
         }
@@ -84,16 +98,16 @@ function draw() {
         fill(255);    // Sets the text color (white)
         textAlign(CENTER, CENTER); // Centers the text
 
-        // Display "ENDING 1" in the middle of the screen
+        // Displays "ENDING 1" in the middle of the screen
         text("ENDING 1", width / 2, height / 2);
     } else if (gameState.current === gameState.secondEnding) {
         // Handles the secondEnding state
-        background(0); // Clear the canvas
+        background(0); // Clears the canvas
         textSize(32); // Sets the text size
         fill(255); // Sets the text color (white)
         textAlign(CENTER, CENTER); // Centers the text
     
-        // Display "ENDING 2" in the middle of the screen
+        // Displays "ENDING 2" in the middle of the screen
         text("ENDING 2", width / 2, height / 2);
       }
 }
