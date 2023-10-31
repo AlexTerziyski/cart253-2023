@@ -73,6 +73,7 @@ function draw() {
             if (ball.hitChainsaw(chainsaw)) {
                 ball.active = false; // Marks the ball as inactive
                 balls.splice(i, 1); // Removes the ball from the array
+                gameState.current = gameState.secondEnding; // Transitions to the "secondEnding" state
                 }
             }
         }
